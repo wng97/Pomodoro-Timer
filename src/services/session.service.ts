@@ -9,7 +9,7 @@ import {
   getSessionDuration,
   computeTimeDifference,
 } from "../utils/session.util";
-import { server } from "../app";
+import { server } from "../server/websocket.server";
 import moment from "moment";
 
 // pomodoro_duration: number;
@@ -20,9 +20,6 @@ export const updateSessionStatusToInProgress = async (taskId: string) => {
   const taskRowsData = await psqlServer.query(
     `SELECT t1.*, t2.pomodoro_duration, t2.short_break_duration, t2.long_break_duration FROM task t1 INNER JOIN setting t2 ON t1.person_id = t2.person_id WHERE t1.id=${taskId}`
   );
-  // const currentData = await psqlServer.query(
-  //   `SELECT s.id, type, current_status, remaining_duration, task_id, session_type, person_id FROM session s JOIN task t ON s.task_id = t.id WHERE t.id = 1 AND t.session_type = s.type;`
-  // );
   if (!taskRowsData.rows.length) {
     //throw error cause all these data should be created when they create task
     throw new Error("No task found!");
@@ -66,6 +63,7 @@ export const updateSessionStatusToInProgress = async (taskId: string) => {
       });
     }
   );
+  console.log("result", result);
   return result;
 };
 

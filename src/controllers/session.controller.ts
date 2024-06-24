@@ -48,9 +48,6 @@ export const startSession = async (req: Request, res: Response) => {
     res.status(200).send("Timer started");
   } catch (e: any) {
     console.log("e", e);
-    if (e.message === "Current status is still in progress") {
-      res.status(200).send(e.message);
-    }
     res.status(500).send("Internal Server Error");
   }
 };

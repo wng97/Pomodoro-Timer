@@ -1,5 +1,5 @@
 import { scheduleJob } from "node-schedule";
-import { server } from "../app";
+import { server } from "../server/websocket.server";
 // import { computeDuration } from "../utils/session.util";
 
 function startCountdown(
